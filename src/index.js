@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Menu from './views/components/Menu';
-import Home from './views/pages/Home/';
-import Sobre from './views/pages/Sobre/';
-import Pagina404 from './views/pages/Pagina404/';
-import Cliente from './views/pages/Cliente/';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
+import Menu from './views/components/Menu';
+import Home from './views/pages/Home/';
+
+import ClienteGerenciar from './views/pages/ClienteGerenciar';
+import ClienteEditar from './views/pages/ClienteEditar';
+
+import Sobre from './views/pages/Sobre/';
+import Pagina404 from './views/pages/Pagina404/';
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +20,10 @@ ReactDOM.render(
         <Menu />
         <Switch>
           <Route path="/" exact={true} component={Home} />
-          <Route path="/Clientes" component={Cliente} />
+
+          <Route path="/clientesGerenciar" component={ClienteGerenciar} />
+          <Route path="/clientesEditar" component={ClienteEditar} />
+
           <Route path="/sobre" component={Sobre} />
           <Route path='*' component={Pagina404} />
         </Switch>
