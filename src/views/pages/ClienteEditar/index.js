@@ -4,6 +4,10 @@ import { Container, Form, Row, Col, Table, Button } from 'react-bootstrap'
 
 import MaskedFormControl from 'react-bootstrap-maskedinput' // https://www.npmjs.com/package/react-bootstrap-maskedinput
 
+import TableEmail from '../../components/TableEmail'
+import TableTelefone from '../../components/TableTelefone'
+import TableReferencias from '../../components/TableReferencias'
+
 export default class ClienteEditar extends React.Component {
   constructor(props) {
     super(props);
@@ -25,12 +29,85 @@ export default class ClienteEditar extends React.Component {
       uf: '',
       complemento: '',
       observacoes: '',
-
+      emails: [
+        {
+          id: "1",
+          endereco: 'email@servidor.com'
+        },
+        {
+          id: "2",
+          endereco: 'email2@servidor2.com'
+        }
+      ],
+      telefones: [
+        {
+          id: "1",
+          ddd: '021',
+          tipo: 'Celular',
+          numero: '1234-5678'
+        },
+        {
+          id: "2",
+          ddd: '021',
+          tipo: 'Residencial',
+          numero: '4321-8765'
+        },
+        {
+          id: "3",
+          ddd: '021',
+          tipo: 'Celular',
+          numero: '99999-8765'
+        }
+      ],
+      referencias: [
+        {
+          id: "1",
+          nome: 'Terezinha',
+          telefone: '1234-5678'
+        },
+        {
+          id: "2",
+          nome: 'Fifi',
+          telefone: '4321-8765'
+        },
+        {
+          id: "3",
+          nome: 'Fafá',
+          telefone: '9999-8765'
+        }
+      ],
     }
   }
 
   componentDidMount() {
 
+  }
+
+  onClickRemoverEmail = event => {
+    const { emails } = this.state
+    let id = event.target.value
+    let objetoExcluir = emails.filter(x => x.id === id)[0]
+    let indiceExcluir = emails.indexOf(objetoExcluir)
+    emails.splice(indiceExcluir, 1)
+    this.setState({ emails: emails })
+  }
+
+  onClickRemoverTelefone = event => {
+    const { telefones } = this.state
+    let id = event.target.value
+    let objetoExcluir = telefones.filter(x => x.id === id)[0]
+    let indiceExcluir = telefones.indexOf(objetoExcluir)
+    telefones.splice(indiceExcluir, 1)
+    this.setState({ telefones: telefones })
+  }
+
+  onClickRemoverReferencia = event => {
+    const { referencias } = this.state
+    let id = event.target.value
+    let objetoExcluir = referencias.filter(x => x.id === id)[0]
+    let indiceExcluir = referencias.indexOf(objetoExcluir)
+    referencias.splice(indiceExcluir, 1)
+    this.setState({ referencias: referencias })
   }
 
   onClickPessoaJuridica = event => {
@@ -97,7 +174,7 @@ export default class ClienteEditar extends React.Component {
                   type="text"
                   placeholder="Informe o número da inscrição"
                   defaultValue={this.state.inscricao}
-                  onChange={e => this.setState({inscricao: e.target.value})}
+                  onChange={e => this.setState({ inscricao: e.target.value })}
                 />
               </Form.Group>
             </Col>
@@ -229,90 +306,25 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control as="textarea" rows="3" />
               </Form.Group>
             </Col>
+            <Col>
+              <TableEmail
+                lista={this.state.emails}
+                onClick={this.onClickRemoverEmail}
+              />
+            </Col>
           </Row>
           <Row>
             <Col>
-              <h6>Telefones</h6>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>DDD</th>
-                    <th>Tipo</th>
-                    <th>Número</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>21</td>
-                    <td>Cel</td>
-                    <td>1234-5678</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>21</td>
-                    <td>Cel</td>
-                    <td>1234-5678</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>21</td>
-                    <td>Cel</td>
-                    <td>1234-5678</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                </tbody>
-              </Table>
+              <TableTelefone
+                lista={this.state.telefones}
+                onClick={this.onClickRemoverTelefone}
+              />
             </Col>
             <Col>
-              <h6>E-mails</h6>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Endereço</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>login@server.com</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-            <Col>
-              <h6>Referências</h6>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>João</td>
-                    <td>1234-5678</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>José</td>
-                    <td>1234-5678</td>
-                    <td><Button variant="outline-dark" size="sm"><img src=""></img></Button></td>
-                  </tr>
-                </tbody>
-              </Table>
+              <TableReferencias
+                lista={this.state.referencias}
+                onClick={this.onClickRemoverReferencia}
+              />              
             </Col>
           </Row>
           <hr />
