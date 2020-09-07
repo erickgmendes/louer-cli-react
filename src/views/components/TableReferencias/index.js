@@ -4,28 +4,35 @@ import { Table, Button } from 'react-bootstrap'
 
 const TableReferencias = props => (
   <>
-    <h6>Referências</h6>
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          <th>#</th>
+          <th style={{ width: 40 }}>#</th>
           <th>Nome</th>
           <th>Telefone</th>
-          <th>&nbsp;</th>
+          <th style={{ width: 100 }}>
+            <Button
+              style={{ width: 100 }}
+              variant="outline-primary"
+              size="sm"
+              onClick={props.onClick}>Adicionar
+            </Button>
+          </th>
         </tr>
       </thead>
       <tbody>
         {props.lista.map(x => (
-          <tr>
+          <tr key={x.id}>
             <td>{x.id}</td>
             <td>{x.nome}</td>
             <td>{x.telefone}</td>
             <td>
               <Button
-                variant="outline-dark"
+                style={{ width: 100 }}
+                variant="outline-danger"
                 size="sm"
                 value={x.id}
-                onClick={props.onClick}>Excluir
+                onClick={props.onClickExcluir}>Excluir
               </Button></td>
           </tr>
         ))}

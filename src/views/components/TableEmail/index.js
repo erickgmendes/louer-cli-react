@@ -4,26 +4,33 @@ import { Table, Button } from 'react-bootstrap'
 
 const TableEmail = props => (
   <>
-    <h6>E-mails</h6>
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          <th>#</th>
+          <th style={{ width: 40 }}>#</th>
           <th>Endereço</th>
-          <th>&nbsp;</th>
+          <th style={{ width: 100 }}>
+            <Button
+              style={{ width: 100 }}
+              variant="outline-primary"
+              size="sm"
+              onClick={props.onClick}>Adicionar
+            </Button>
+          </th>
         </tr>
       </thead>
       <tbody>
         {props.lista.map(x => (
-          <tr>
+          <tr key={x.id}>
             <td>{x.id}</td>
             <td>{x.endereco}</td>
             <td>
               <Button
-                variant="outline-dark"
+                style={{ width: 100 }}
+                variant="outline-danger"
                 size="sm"
                 value={x.id}
-                onClick={props.onClick}><img src=""></img>Excluir
+                onClick={props.onClickExcluir}>Excluir
               </Button></td>
           </tr>
         ))}

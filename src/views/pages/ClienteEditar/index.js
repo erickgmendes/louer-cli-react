@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container, Form, Row, Col, Table, Button } from 'react-bootstrap'
+import { Container, Form, Row, Col, Button, Tabs, Tab } from 'react-bootstrap'
 
 import MaskedFormControl from 'react-bootstrap-maskedinput' // https://www.npmjs.com/package/react-bootstrap-maskedinput
 
@@ -76,6 +76,11 @@ export default class ClienteEditar extends React.Component {
           telefone: '9999-8765'
         }
       ],
+
+      showModalTelefone: false,
+      dddTelefoneAdd: '',
+      tipoTelefoneAdd: '',
+      numeroTelefoneAdd: '',
     }
   }
 
@@ -83,7 +88,7 @@ export default class ClienteEditar extends React.Component {
 
   }
 
-  onClickRemoverEmail = event => {
+  onClickExcluirEmail = event => {
     const { emails } = this.state
     let id = event.target.value
     let objetoExcluir = emails.filter(x => x.id === id)[0]
@@ -92,7 +97,23 @@ export default class ClienteEditar extends React.Component {
     this.setState({ emails: emails })
   }
 
-  onClickRemoverTelefone = event => {
+  onClickOpenModalTelefone = event => {
+    this.setState({ showModalTelefone: true })
+  }
+
+  onClickCloseModalTelefone = event => {
+    this.setState({ showModalTelefone: false })
+  }
+
+  onClickAdicionarTelefone = event => {
+    this.setState({
+      dddTelefoneAdd: '',
+      tipoTelefoneAdd: '',
+      numeroTelefoneAdd: '',
+    })
+  }
+
+  onClickExcluirTelefone = event => {
     const { telefones } = this.state
     let id = event.target.value
     let objetoExcluir = telefones.filter(x => x.id === id)[0]
@@ -101,7 +122,7 @@ export default class ClienteEditar extends React.Component {
     this.setState({ telefones: telefones })
   }
 
-  onClickRemoverReferencia = event => {
+  onClickExcluirReferencia = event => {
     const { referencias } = this.state
     let id = event.target.value
     let objetoExcluir = referencias.filter(x => x.id === id)[0]
@@ -132,6 +153,11 @@ export default class ClienteEditar extends React.Component {
     console.log(this.state)
   }
 
+  onFormAddTelefoneSubmit = event => {
+    event.preventDefault()
+    console.log("AQUI")
+  }
+
   render() {
     return (
       <Container>
@@ -142,7 +168,7 @@ export default class ClienteEditar extends React.Component {
             <Col>
               <Form.Check
                 inline
-                checked={this.state.pessoaJuridica}
+                defaultChecked={this.state.pessoaJuridica}
                 type='radio'
                 label='Pessoa Jurídica'
                 name="radioTipoPessoa"
@@ -150,7 +176,7 @@ export default class ClienteEditar extends React.Component {
               />
               <Form.Check
                 inline
-                checked={!this.state.pessoaJuridica}
+                defaultChecked={!this.state.pessoaJuridica}
                 type='radio'
                 label='Pessoa Física'
                 name="radioTipoPessoa"
@@ -163,7 +189,7 @@ export default class ClienteEditar extends React.Component {
                 <MaskedFormControl
                   type='text'
                   mask={this.state.pessoaMask}
-                  value={this.state.cpfCnpj}
+                  defaultValue={this.state.cpfCnpj}
                 />
               </Form.Group>
             </Col>
@@ -186,7 +212,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe o " + this.state.pessoaTipoNome}
-                  value={this.state.nome}
+                  defaultValue={this.state.nome}
                 />
               </Form.Group>
             </Col>
@@ -196,7 +222,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe a Razão Social"}
-                  value={this.state.razaoSocial}
+                  defaultValue={this.state.razaoSocial}
                 />
               </Form.Group>
             </Col>}
@@ -208,7 +234,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe o endereço"}
-                  value={this.state.endereco}
+                  defaultValue={this.state.endereco}
                 />
               </Form.Group>
             </Col>
@@ -218,7 +244,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe o número"}
-                  value={this.state.numero}
+                  defaultValue={this.state.numero}
                 />
               </Form.Group>
             </Col>
@@ -228,7 +254,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe o complemento"}
-                  value={this.state.bairro}
+                  defaultValue={this.state.bairro}
                 />
               </Form.Group>
             </Col>
@@ -240,7 +266,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe o bairro"}
-                  value={this.state.bairro}
+                  defaultValue={this.state.bairro}
                 />
               </Form.Group>
             </Col>
@@ -250,7 +276,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder={"Informe a cidade"}
-                  value={this.state.cidade}
+                  defaultValue={this.state.cidade}
                 />
               </Form.Group>
             </Col>
@@ -294,7 +320,7 @@ export default class ClienteEditar extends React.Component {
                 <MaskedFormControl
                   type='text'
                   mask='11111-111'
-                  value={this.state.cep}
+                  defaultValue={this.state.cep}
                 />
               </Form.Group>
             </Col>
@@ -306,25 +332,36 @@ export default class ClienteEditar extends React.Component {
                 <Form.Control as="textarea" rows="3" />
               </Form.Group>
             </Col>
-            <Col>
-              <TableEmail
-                lista={this.state.emails}
-                onClick={this.onClickRemoverEmail}
-              />
-            </Col>
           </Row>
           <Row>
             <Col>
-              <TableTelefone
-                lista={this.state.telefones}
-                onClick={this.onClickRemoverTelefone}
-              />
-            </Col>
-            <Col>
-              <TableReferencias
-                lista={this.state.referencias}
-                onClick={this.onClickRemoverReferencia}
-              />              
+              <Tabs defaultActiveKey="emails" id="uncontrolled-tab-example">
+                <Tab eventKey="emails" title="E-mails">
+                  <TableEmail
+                    lista={this.state.emails}
+                    onClickExcluir={this.onClickExcluirEmail}
+                    onClickAdicionar={this.onClickAdicionarEmail}
+                  />
+                </Tab>
+                <Tab eventKey="telefones" title="Telefones">
+                  <TableTelefone
+                    lista={this.state.telefones}
+                    showModal={this.state.showModalTelefone}
+                    onClickExcluir={this.onClickExcluirTelefone}
+                    onClickOpenModal={this.onClickOpenModalTelefone}
+                    onClickCloseModal={this.onClickCloseModalTelefone}
+                    onClickAdicionar={this.onClickAdicionarTelefone}
+                    onFormSubmit={this.onFormAddTelefoneSubmit}
+                  />
+                </Tab>
+                <Tab eventKey="referencias" title="Referências">
+                  <TableReferencias
+                    lista={this.state.referencias}
+                    onClickExcluir={this.onClickExcluirReferencia}
+                    onClickAdicionar={this.onClickAdicionarTelefone}
+                  />
+                </Tab>
+              </Tabs>
             </Col>
           </Row>
           <hr />
@@ -332,14 +369,15 @@ export default class ClienteEditar extends React.Component {
             <Col>
             </Col>
             <Col sm={3}>
-              <Button variant="success" style={{ width: '100%' }}>Gravar</Button>
+              <Button variant="outline-dark" style={{ width: '100%' }}>Gravar</Button>
             </Col>
             <Col sm={3}>
-              <Button variant="warning" style={{ width: '100%' }}>Retornar</Button>
+              <Button variant="outline-secondary" style={{ width: '100%' }}>Retornar</Button>
             </Col>
             <Col>
             </Col>
           </Row>
+          <br />
         </Form>
       </Container>
     )
