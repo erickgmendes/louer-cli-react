@@ -10,8 +10,8 @@ const TableTelefone = props => (
         <tr>
           <th style={{ width: 40 }}>#</th>
           <th style={{ width: 50 }}>DDD</th>
-          <th>Tipo</th>
-          <th>Número</th>
+          <th>Tipo de Telefone</th>
+          <th>Número do Telefone</th>
           <th style={{ width: 100 }}>
             <Button
               style={{ width: 100 }}

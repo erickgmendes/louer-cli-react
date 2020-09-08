@@ -8,8 +8,8 @@ const TableReferencias = props => (
       <thead>
         <tr>
           <th style={{ width: 40 }}>#</th>
-          <th>Nome</th>
-          <th>Telefone</th>
+          <th>Nome da Referência</th>
+          <th>Telefone da Referência</th>
           <th style={{ width: 100 }}>
             <Button
               style={{ width: 100 }}

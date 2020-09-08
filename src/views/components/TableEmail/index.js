@@ -8,7 +8,7 @@ const TableEmail = props => (
       <thead>
         <tr>
           <th style={{ width: 40 }}>#</th>
-          <th>Endereço</th>
+          <th>Endereço do E-mail</th>
           <th style={{ width: 100 }}>
             <Button
               style={{ width: 100 }}

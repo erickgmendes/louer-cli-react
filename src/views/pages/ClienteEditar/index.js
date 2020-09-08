@@ -43,6 +43,7 @@ export default class ClienteEditar extends React.Component {
   }
 
   onChangeCpfCnpj = event => {
+    /*
     const { pessoaJuridica } = this.state
     let valor = event.target.value
     let cpfCnpj = ''
@@ -67,10 +68,11 @@ export default class ClienteEditar extends React.Component {
           else
             cpfCnpj += valor[i]
         }
-      }
+      }      
     }
     event.target.value = cpfCnpj
     this.setState({ cpfCnpj: cpfCnpj })
+    */
   }
 
   onClickExcluirEmail = event => {
