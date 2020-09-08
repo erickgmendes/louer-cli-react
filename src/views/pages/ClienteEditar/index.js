@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Container, Form, Row, Col, Button, Tabs, Tab } from 'react-bootstrap'
 
-import MaskedFormControl from 'react-bootstrap-maskedinput' // https://www.npmjs.com/package/react-bootstrap-maskedinput
-
 import TableEmail from '../../components/TableEmail'
 import TableTelefone from '../../components/TableTelefone'
 import TableReferencias from '../../components/TableReferencias'
@@ -29,53 +27,9 @@ export default class ClienteEditar extends React.Component {
       uf: '',
       complemento: '',
       observacoes: '',
-      emails: [
-        {
-          id: "1",
-          endereco: 'email@servidor.com'
-        },
-        {
-          id: "2",
-          endereco: 'email2@servidor2.com'
-        }
-      ],
-      telefones: [
-        {
-          id: "1",
-          ddd: '021',
-          tipo: 'Celular',
-          numero: '1234-5678'
-        },
-        {
-          id: "2",
-          ddd: '021',
-          tipo: 'Residencial',
-          numero: '4321-8765'
-        },
-        {
-          id: "3",
-          ddd: '021',
-          tipo: 'Celular',
-          numero: '99999-8765'
-        }
-      ],
-      referencias: [
-        {
-          id: "1",
-          nome: 'Terezinha',
-          telefone: '1234-5678'
-        },
-        {
-          id: "2",
-          nome: 'Fifi',
-          telefone: '4321-8765'
-        },
-        {
-          id: "3",
-          nome: 'Fafá',
-          telefone: '9999-8765'
-        }
-      ],
+      emails: [],
+      telefones: [],
+      referencias: [],
 
       showModalTelefone: false,
       dddTelefoneAdd: '',
@@ -86,6 +40,37 @@ export default class ClienteEditar extends React.Component {
 
   componentDidMount() {
 
+  }
+
+  onChangeCpfCnpj = event => {
+    const { pessoaJuridica } = this.state
+    let valor = event.target.value
+    let cpfCnpj = ''
+    if (valor !== null) {
+      if (pessoaJuridica) { // CNPJ
+        for (let i = 0; i < valor.length; i++) {
+          if (cpfCnpj.length === 2 || cpfCnpj.length === 6)
+            cpfCnpj += '.'
+          else if (cpfCnpj.length === 10)
+            cpfCnpj += '/'
+          else if (cpfCnpj.length === 15)
+            cpfCnpj += '-'
+          else
+            cpfCnpj += valor[i]
+        }
+      } else { // CPF
+        for (let i = 0; i < valor.length; i++) {
+          if (cpfCnpj.length === 3 || cpfCnpj.length === 7)
+            cpfCnpj += '.'
+          else if (cpfCnpj.length === 11)
+            cpfCnpj += '-'
+          else
+            cpfCnpj += valor[i]
+        }
+      }
+    }
+    event.target.value = cpfCnpj
+    this.setState({ cpfCnpj: cpfCnpj })
   }
 
   onClickExcluirEmail = event => {
@@ -155,7 +140,40 @@ export default class ClienteEditar extends React.Component {
 
   onFormAddTelefoneSubmit = event => {
     event.preventDefault()
-    console.log("AQUI")
+
+    let listaTelefone = this.state.telefones
+    let ddd = event.target.ddd.value
+    let tipo = event.target.tipo.value
+    let numero = event.target.numero.value
+
+    listaTelefone.push({
+      ddd: ddd,
+      tipo: tipo,
+      numero: numero
+    })
+
+    event.target.ddd.value = ''
+    event.target.tipo.value = ''
+    event.target.numero.value = ''
+    event.target.ddd.focus()
+
+    this.setState({ telefones: listaTelefone })
+  }
+
+  onFormAddEmailSubmit = event => {
+    event.preventDefault()
+
+    let listaEmail = this.state.Emails
+    let endereco = event.target.endereco.value
+
+    listaEmail.push({
+      endereco: endereco
+    })
+
+    event.target.endereco.value = ''
+    event.target.endereco.focus()
+
+    this.setState({ listaEmail: listaEmail })
   }
 
   render() {
@@ -163,7 +181,7 @@ export default class ClienteEditar extends React.Component {
       <Container>
         <h5>Editar Clientes</h5>
         <hr />
-        <Form>
+        <Form onSubmit={this.onFormSubmit}>
           <Row>
             <Col>
               <Form.Check
@@ -186,10 +204,10 @@ export default class ClienteEditar extends React.Component {
             <Col>
               <Form.Group>
                 <Form.Label>{this.state.labelCpfCnpj}</Form.Label>
-                <MaskedFormControl
+                <Form.Control
                   type='text'
-                  mask={this.state.pessoaMask}
                   defaultValue={this.state.cpfCnpj}
+                  onChange={this.onChangeCpfCnpj}
                 />
               </Form.Group>
             </Col>
@@ -317,7 +335,7 @@ export default class ClienteEditar extends React.Component {
             <Col sm={2}>
               <Form.Group>
                 <Form.Label>CEP</Form.Label>
-                <MaskedFormControl
+                <Form.Control
                   type='text'
                   mask='11111-111'
                   defaultValue={this.state.cep}
@@ -369,7 +387,11 @@ export default class ClienteEditar extends React.Component {
             <Col>
             </Col>
             <Col sm={3}>
-              <Button variant="outline-dark" style={{ width: '100%' }}>Gravar</Button>
+              <Button
+                type="submit"
+                variant="outline-dark"
+                style={{ width: '100%' }}
+              >Gravar</Button>
             </Col>
             <Col sm={3}>
               <Button variant="outline-secondary" style={{ width: '100%' }}>Retornar</Button>
@@ -379,7 +401,7 @@ export default class ClienteEditar extends React.Component {
           </Row>
           <br />
         </Form>
-      </Container>
+      </Container >
     )
   }
 }

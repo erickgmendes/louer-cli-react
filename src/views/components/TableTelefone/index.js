@@ -38,6 +38,7 @@ const TableTelefone = props => (
                         <Form.Label>DDD</Form.Label>
                         <Form.Control
                           type="text"
+                          name="ddd"
                           placeholder="Informe o DDD"
                           defaultValue={props.inscricao}
                         />
@@ -48,6 +49,7 @@ const TableTelefone = props => (
                         <Form.Label>Tipo</Form.Label>
                         <Form.Control
                           type="text"
+                          name="tipo"
                           placeholder="Informe o tipo do telefone"
                           defaultValue={props.inscricao}
                         />
@@ -58,6 +60,7 @@ const TableTelefone = props => (
                         <Form.Label>Número</Form.Label>
                         <Form.Control
                           type="text"
+                          name="numero"
                           placeholder="Informe o número do telefone"
                           defaultValue={props.inscricao}
                         />
