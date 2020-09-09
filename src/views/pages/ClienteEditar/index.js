@@ -32,9 +32,8 @@ export default class ClienteEditar extends React.Component {
       referencias: [],
 
       showModalTelefone: false,
-      dddTelefoneAdd: '',
-      tipoTelefoneAdd: '',
-      numeroTelefoneAdd: '',
+      showModalEmail: false,
+      showModalReferencia: false,
     }
   }
 
@@ -75,6 +74,13 @@ export default class ClienteEditar extends React.Component {
     */
   }
 
+  // Início e-mail
+  onClickAdicionarEmail = event => {
+    /*this.setState({
+      enderecoEmailAdd: ''
+    })*/
+  }
+
   onClickExcluirEmail = event => {
     const { emails } = this.state
     let id = event.target.value
@@ -84,20 +90,38 @@ export default class ClienteEditar extends React.Component {
     this.setState({ emails: emails })
   }
 
-  onClickOpenModalTelefone = event => {
-    this.setState({ showModalTelefone: true })
+  onClickOpenModalEmail = event => {
+    this.setState({ showModalEmail: true })
   }
 
-  onClickCloseModalTelefone = event => {
-    this.setState({ showModalTelefone: false })
+  onClickCloseModalEmail = event => {
+    this.setState({ showModalEmail: false })
   }
 
+  onFormAddEmailSubmit = event => {
+    event.preventDefault()
+
+    let listaEmail = this.state.emails
+    let enderecoEmail = event.target.enderecoEmail.value
+
+    listaEmail.push({
+      enderecoEmail: enderecoEmail
+    })
+
+    event.target.enderecoEmail.value = ''
+    event.target.enderecoEmail.focus()
+
+    this.setState({ emails: listaEmail })
+  }
+  // Fim e-mail
+
+  // Inicio Telefone
   onClickAdicionarTelefone = event => {
-    this.setState({
+    /*this.setState({
       dddTelefoneAdd: '',
       tipoTelefoneAdd: '',
       numeroTelefoneAdd: '',
-    })
+    })*/
   }
 
   onClickExcluirTelefone = event => {
@@ -109,6 +133,45 @@ export default class ClienteEditar extends React.Component {
     this.setState({ telefones: telefones })
   }
 
+  onClickOpenModalTelefone = event => {
+    this.setState({ showModalTelefone: true })
+  }
+
+  onClickCloseModalTelefone = event => {
+    this.setState({ showModalTelefone: false })
+  }
+
+  onFormAddTelefoneSubmit = event => {
+    event.preventDefault()
+
+    let listaTelefone = this.state.telefones
+    let dddTelefone = event.target.dddTelefone.value
+    let tipoTelefone = event.target.tipoTelefone.value
+    let numeroTelefone = event.target.numeroTelefone.value
+
+    listaTelefone.push({
+      dddTelefone: dddTelefone,
+      tipoTelefone: tipoTelefone,
+      numeroTelefone: numeroTelefone
+    })
+
+    event.target.dddTelefone.value = ''
+    event.target.tipoTelefone.value = ''
+    event.target.numeroTelefone.value = ''
+    event.target.dddTelefone.focus()
+
+    this.setState({ telefones: listaTelefone })
+  }
+  // Fim Telefone
+
+  // Início referência
+  onClickAdicionarReferencia = event => {
+    /*this.setState({
+      nomeReferenciaAdd: '',
+      telefoneReferenciaAdd: ''
+    })*/
+  }
+
   onClickExcluirReferencia = event => {
     const { referencias } = this.state
     let id = event.target.value
@@ -117,6 +180,34 @@ export default class ClienteEditar extends React.Component {
     referencias.splice(indiceExcluir, 1)
     this.setState({ referencias: referencias })
   }
+
+  onClickOpenModalReferencia = event => {
+    this.setState({ showModalReferencia: true })
+  }
+
+  onClickCloseModalReferencia = event => {
+    this.setState({ showModalReferencia: false })
+  }
+
+  onFormAddReferenciaSubmit = event => {
+    event.preventDefault()
+
+    let listaReferencia = this.state.referencias
+    let nomeReferencia = event.target.nomeReferencia.value
+    let telefoneReferencia = event.target.telefoneReferencia.value
+
+    listaReferencia.push({
+      nomeReferencia: nomeReferencia,
+      telefoneReferencia: telefoneReferencia
+    })
+
+    event.target.nomeReferencia.value = ''
+    event.target.telefoneReferencia.value = ''
+    event.target.nomeReferencia.focus()
+
+    this.setState({ referencias: listaReferencia })
+  }
+  // Fim referência  
 
   onClickPessoaJuridica = event => {
     this.mudaTipoPessoa('CNPJ')
@@ -140,44 +231,6 @@ export default class ClienteEditar extends React.Component {
     console.log(this.state)
   }
 
-  onFormAddTelefoneSubmit = event => {
-    event.preventDefault()
-
-    let listaTelefone = this.state.telefones
-    let ddd = event.target.ddd.value
-    let tipo = event.target.tipo.value
-    let numero = event.target.numero.value
-
-    listaTelefone.push({
-      ddd: ddd,
-      tipo: tipo,
-      numero: numero
-    })
-
-    event.target.ddd.value = ''
-    event.target.tipo.value = ''
-    event.target.numero.value = ''
-    event.target.ddd.focus()
-
-    this.setState({ telefones: listaTelefone })
-  }
-
-  onFormAddEmailSubmit = event => {
-    event.preventDefault()
-
-    let listaEmail = this.state.Emails
-    let endereco = event.target.endereco.value
-
-    listaEmail.push({
-      endereco: endereco
-    })
-
-    event.target.endereco.value = ''
-    event.target.endereco.focus()
-
-    this.setState({ listaEmail: listaEmail })
-  }
-
   render() {
     return (
       <Container>
@@ -185,7 +238,7 @@ export default class ClienteEditar extends React.Component {
         <hr />
         <Form onSubmit={this.onFormSubmit}>
           <Row>
-            <Col>
+            <Col sm={2}>
               <Form.Check
                 inline
                 defaultChecked={this.state.pessoaJuridica}
@@ -194,6 +247,7 @@ export default class ClienteEditar extends React.Component {
                 name="radioTipoPessoa"
                 onClick={this.onClickPessoaJuridica}
               />
+              <br />
               <Form.Check
                 inline
                 defaultChecked={!this.state.pessoaJuridica}
@@ -203,11 +257,12 @@ export default class ClienteEditar extends React.Component {
                 onClick={this.onClickPessoaFisica}
               />
             </Col>
-            <Col>
+            <Col sm={2}>
               <Form.Group>
                 <Form.Label>{this.state.labelCpfCnpj}</Form.Label>
                 <Form.Control
                   type='text'
+                  size="sm"
                   defaultValue={this.state.cpfCnpj}
                   onChange={this.onChangeCpfCnpj}
                 />
@@ -218,61 +273,65 @@ export default class ClienteEditar extends React.Component {
                 <Form.Label>Inscrição</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder="Informe o número da inscrição"
                   defaultValue={this.state.inscricao}
                   onChange={e => this.setState({ inscricao: e.target.value })}
                 />
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
             <Col>
               <Form.Group>
                 <Form.Label>{this.state.pessoaTipoNome}</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe o " + this.state.pessoaTipoNome}
                   defaultValue={this.state.nome}
                 />
               </Form.Group>
             </Col>
-            {this.state.pessoaJuridica && <Col>
+          </Row>
+          <Row>
+            {this.state.pessoaJuridica && <Col sm={4}>
               <Form.Group>
                 <Form.Label>Razão Social</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe a Razão Social"}
                   defaultValue={this.state.razaoSocial}
                 />
               </Form.Group>
             </Col>}
-          </Row>
-          <Row>
             <Col>
               <Form.Group>
                 <Form.Label>Endereço</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe o endereço"}
                   defaultValue={this.state.endereco}
                 />
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm={2}>
               <Form.Group>
                 <Form.Label>Número</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe o número"}
                   defaultValue={this.state.numero}
                 />
               </Form.Group>
             </Col>
-            <Col>
+            <Col sm={2}>
               <Form.Group>
                 <Form.Label>Complemento</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe o complemento"}
                   defaultValue={this.state.bairro}
                 />
@@ -285,6 +344,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Label>Bairro</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe o bairro"}
                   defaultValue={this.state.bairro}
                 />
@@ -295,6 +355,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Label>Cidade</Form.Label>
                 <Form.Control
                   type="text"
+                  size="sm"
                   placeholder={"Informe a cidade"}
                   defaultValue={this.state.cidade}
                 />
@@ -303,7 +364,10 @@ export default class ClienteEditar extends React.Component {
             <Col sm={3}>
               <Form.Group>
                 <Form.Label>UF</Form.Label>
-                <Form.Control as="select">
+                <Form.Control
+                  as="select"
+                  size="sm"
+                >
                   <option>AC - Acre</option>
                   <option>AL - Alagoas</option>
                   <option>AM - Amazonas</option>
@@ -339,6 +403,7 @@ export default class ClienteEditar extends React.Component {
                 <Form.Label>CEP</Form.Label>
                 <Form.Control
                   type='text'
+                  size="sm"
                   mask='11111-111'
                   defaultValue={this.state.cep}
                 />
@@ -349,7 +414,11 @@ export default class ClienteEditar extends React.Component {
             <Col>
               <Form.Group>
                 <Form.Label>Observações</Form.Label>
-                <Form.Control as="textarea" rows="3" />
+                <Form.Control
+                  as="textarea"
+                  size="sm"
+                  rows="3"
+                />
               </Form.Group>
             </Col>
           </Row>
@@ -359,26 +428,34 @@ export default class ClienteEditar extends React.Component {
                 <Tab eventKey="emails" title="E-mails">
                   <TableEmail
                     lista={this.state.emails}
-                    onClickExcluir={this.onClickExcluirEmail}
+                    showModal={this.state.showModalEmail}
                     onClickAdicionar={this.onClickAdicionarEmail}
+                    onClickExcluir={this.onClickExcluirEmail}
+                    onClickOpenModal={this.onClickOpenModalEmail}
+                    onClickCloseModal={this.onClickCloseModalEmail}
+                    onFormSubmit={this.onFormAddEmailSubmit}
                   />
                 </Tab>
                 <Tab eventKey="telefones" title="Telefones">
                   <TableTelefone
                     lista={this.state.telefones}
                     showModal={this.state.showModalTelefone}
+                    onClickAdicionar={this.onClickAdicionarTelefone}
                     onClickExcluir={this.onClickExcluirTelefone}
                     onClickOpenModal={this.onClickOpenModalTelefone}
                     onClickCloseModal={this.onClickCloseModalTelefone}
-                    onClickAdicionar={this.onClickAdicionarTelefone}
                     onFormSubmit={this.onFormAddTelefoneSubmit}
                   />
                 </Tab>
                 <Tab eventKey="referencias" title="Referências">
                   <TableReferencias
                     lista={this.state.referencias}
+                    showModal={this.state.showModalReferencia}
+                    onClickAdicionar={this.onClickAdicionarReferencia}
                     onClickExcluir={this.onClickExcluirReferencia}
-                    onClickAdicionar={this.onClickAdicionarTelefone}
+                    onClickOpenModal={this.onClickOpenModalReferencia}
+                    onClickCloseModal={this.onClickCloseModalReferencia}
+                    onFormSubmit={this.onFormAddReferenciaSubmit}
                   />
                 </Tab>
               </Tabs>
@@ -391,12 +468,13 @@ export default class ClienteEditar extends React.Component {
             <Col sm={3}>
               <Button
                 type="submit"
+                size="sm"
                 variant="outline-dark"
                 style={{ width: '100%' }}
               >Gravar</Button>
             </Col>
             <Col sm={3}>
-              <Button variant="outline-secondary" style={{ width: '100%' }}>Retornar</Button>
+              <Button size="sm" variant="outline-secondary" style={{ width: '100%' }}>Retornar</Button>
             </Col>
             <Col>
             </Col>

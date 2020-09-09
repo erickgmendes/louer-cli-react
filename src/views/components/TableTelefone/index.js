@@ -3,7 +3,6 @@ import React from "react";
 import { Table, Button, Modal, Form, Row, Col } from 'react-bootstrap'
 
 const TableTelefone = props => (
-
   <>
     <Table striped bordered hover size="sm">
       <thead>
@@ -38,9 +37,9 @@ const TableTelefone = props => (
                         <Form.Label>DDD</Form.Label>
                         <Form.Control
                           type="text"
-                          name="ddd"
+                          size="sm"
+                          name="dddTelefone"
                           placeholder="Informe o DDD"
-                          defaultValue={props.inscricao}
                         />
                       </Form.Group>
                     </Col>
@@ -49,9 +48,9 @@ const TableTelefone = props => (
                         <Form.Label>Tipo</Form.Label>
                         <Form.Control
                           type="text"
-                          name="tipo"
+                          size="sm"
+                          name="tipoTelefone"
                           placeholder="Informe o tipo do telefone"
-                          defaultValue={props.inscricao}
                         />
                       </Form.Group>
                     </Col>
@@ -60,9 +59,9 @@ const TableTelefone = props => (
                         <Form.Label>Número</Form.Label>
                         <Form.Control
                           type="text"
-                          name="numero"
+                          size="sm"
+                          name="numeroTelefone"
                           placeholder="Informe o número do telefone"
-                          defaultValue={props.inscricao}
                         />
                       </Form.Group>
                     </Col>
@@ -89,9 +88,9 @@ const TableTelefone = props => (
         {props.lista.map(x => (
           <tr key={x.id}>
             <td>{x.id}</td>
-            <td>{x.ddd}</td>
-            <td>{x.tipo}</td>
-            <td>{x.numero}</td>
+            <td>{x.dddTelefone}</td>
+            <td>{x.tipoTelefone}</td>
+            <td>{x.numeroTelefone}</td>
             <td>
               <Button
                 style={{ width: 100 }}

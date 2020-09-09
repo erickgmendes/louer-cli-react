@@ -29,11 +29,10 @@ const Menu = props =>
           </NavDropdown>
         </Nav>
         <Form inline>
-          <FormControl type="text" placeholder="Busca" className="mr-sm-2" />
-          <Button variant="outline-success">Busca</Button>
+          <FormControl type="text" size="sm" placeholder="Busca" className="mr-sm-2" />
+          <Button variant="outline-success" size="sm">Busca</Button>
         </Form>
       </Navbar.Collapse>
     </Navbar>
-    <br />
   </>
 export default Menu
