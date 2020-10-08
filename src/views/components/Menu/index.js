@@ -1,38 +1,46 @@
 import React from "react"
 
-import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap'
-
 import { Link } from 'react-router-dom'
 
 const Menu = props =>
-  <>
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Louer Web</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link as={Link} to="/">Home</Nav.Link>
+<header>
+<nav class="navbar  navbar-fixed-top navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle uarr collapsed" data-toggle="collapse"
+        data-target="#navbar-collapse-uarr">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./index.html" title="">
+        <img src="./assets/images/mashuptemplate.svg" class="navbar-logo-img" alt="" />
+      </a>
+    </div>
 
-          <NavDropdown title="Clientes">
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesGerenciar">Gerenciar</Nav.Link></NavDropdown.Item>
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesEditar">Editar</Nav.Link></NavDropdown.Item>
-          </NavDropdown>
+    <div class="collapse navbar-collapse" id="navbar-collapse-uarr">
+      <ul class="nav navbar-nav navbar-right">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/clientes">Clientes</Link></li>
 
-          <Nav.Link><Link to="/sobre">Sobre</Link></Nav.Link>
+        
 
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesGerenciar">Action</Nav.Link></NavDropdown.Item>
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesGerenciar">Another action</Nav.Link></NavDropdown.Item>
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesGerenciar">Something</Nav.Link></NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item><Nav.Link as={Link} to="/clientesGerenciar">Separated link</Nav.Link></NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-        <Form inline>
-          <FormControl type="text" size="sm" placeholder="Busca" className="mr-sm-2" />
-          <Button variant="outline-success" size="sm">Busca</Button>
-        </Form>
-      </Navbar.Collapse>
-    </Navbar>
-  </>
+        <li><a href="./pricing.html" title=""> Pricing </a></li>
+        <li><a href="./contact.html" title="">Contact</a></li>
+        <li><a href="./components.html" title="">Components</a></li>
+        <li>
+          <p>
+            <a href="./download.html" class="btn btn-primary navbar-btn" title="">Download</a>
+          </p>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+
+  
+
 export default Menu

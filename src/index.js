@@ -6,11 +6,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'; // https://medi
 import Menu from './views/components/Menu';
 import Home from './views/pages/Home/';
 
-import ClienteGerenciar from './views/pages/ClienteGerenciar';
-import ClienteEditar from './views/pages/ClienteEditar';
+import Clientes from './views/pages/Clientes';
+import ClienteEditar from './views/pages/Clientes/editar';
 
 import Sobre from './views/pages/Sobre/';
 import Pagina404 from './views/pages/Pagina404/';
+
+// Ícones: https://glyph.smarticons.co/
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +22,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact={true} component={Home} />
 
-          <Route path="/clientesGerenciar" component={ClienteGerenciar} />
+          <Route path="/clientes" component={Clientes} />
           <Route path="/clientesEditar" component={ClienteEditar} />
 
           <Route path="/sobre" component={Sobre} />
